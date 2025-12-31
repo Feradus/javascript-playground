@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 5rem;
+}
+
+#gameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+#controlElements button {
+  display: inline-block;
+  height: 2rem;
+  width: 5rem;
+}
