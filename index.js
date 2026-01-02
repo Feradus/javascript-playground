@@ -5,6 +5,10 @@ import {
   LINE_WIDTH,
   ANIMATION_SPEED,
 } from "./constants.js"
+import {
+  getCellIndicesFromCoordinates,
+  fillCellByIndices,
+} from "./helperFunctions.js"
 
 let cells = []
 let gameIsRunning = false
@@ -52,11 +56,11 @@ function handleChangeCell(event) {
     return
   }
 
-  const cellIndexes = getCellIndicesFromCoordinates(
+  const cellIndices = getCellIndicesFromCoordinates(
     event.clientX,
     event.clientY,
   )
-  changeCellStatusManually(cellIndexes.x, cellIndexes.y)
+  changeCellStatusManually(cellIndices.x, cellIndices.y)
 }
 
 function handleStartButton(event) {
@@ -81,28 +85,6 @@ function changeCellStatusManually(x, y) {
   fillCellByIndices(x, y)
   cells[x][y].currentIterationIsCellAlive =
     !cells[x][y].currentIterationIsCellAlive
-}
-function getCellIndicesFromCoordinates(x, y) {
-  const rect = canvas.getBoundingClientRect()
-  const xIndex = Math.floor((x - rect.left) / CELL_SIZE)
-  const yIndex = Math.floor((y - rect.top) / CELL_SIZE)
-
-  return { x: xIndex, y: yIndex }
-}
-
-function fillCellByIndices(x, y) {
-  if (cells[x][y].currentIterationIsCellAlive) {
-    context.fillStyle = "white"
-  } else {
-    context.fillStyle = "black"
-  }
-
-  context.fillRect(
-    x * CELL_SIZE + LINE_WIDTH / 2,
-    y * CELL_SIZE + LINE_WIDTH / 2,
-    CELL_SIZE - LINE_WIDTH,
-    CELL_SIZE - LINE_WIDTH,
-  )
 }
 
 function startGame() {
